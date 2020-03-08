@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/class_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:checkedButton="@id/outcome">
+
+        <RadioButton
+            android:id="@+id/outcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支出"
+            android:textSize="12sp"
+            android:textColor="#000"/>
+
+        <RadioButton
+            android:id="@+id/income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入"
+            android:layout_marginLeft="24dp"
+            android:textSize="12sp"
+            android:textColor="#000"/>
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/buy_what"
+        style="@style/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="做了啥" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/buy_money"
+        style="@style/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="多少钱"
+        android:inputType="number|numberDecimal" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/colorPrimary"
+        android:text="保存"
+        android:textColor="#000"
+        android:textSize="14sp" />
+</LinearLayout>
