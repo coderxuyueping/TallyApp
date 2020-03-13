@@ -33,8 +33,8 @@ class LookActivity : AppCompatActivity() {
     private var dataList: MutableList<Bean>? = null
     private var list: MutableList<ShowBean> = mutableListOf()
     private var adapter: MyAdapter? = null
-    private var allIncome: Float = 0f
-    private var allOutcome: Float = 0f
+    private var allIncome: BigDecimal = 0f.toBigDecimal()
+    private var allOutcome: BigDecimal = 0f.toBigDecimal()
 
     private val observer: ObserManager.Observer = object : ObserManager.Observer {
         override fun onChange() {
@@ -98,8 +98,8 @@ class LookActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        allOutcome = 0f
-        allIncome = 0f
+        allOutcome = 0f.toBigDecimal()
+        allIncome = 0f.toBigDecimal()
         val time = showBean?.time
         val year = time!!.split("年")[0]
         val month = time.split("年")[1].split("月")[0]
@@ -115,14 +115,14 @@ class LookActivity : AppCompatActivity() {
                 list.add(showBean)
 
                 if (it.money.startsWith("-")) {
-                    allOutcome += -(it.money.split("-")[1]).toFloat()
+                    allOutcome = allOutcome.add(-(it.money.split("-")[1]).toFloat().toBigDecimal())
                 } else {
-                    allIncome += it.money.toFloat()
+                    allIncome = allIncome.add(it.money.toFloat().toBigDecimal())
                 }
             }
         }
 
-        val temp = BigDecimal(allOutcome.toString()).add(BigDecimal(allIncome.toString()))
+        val temp = allIncome.add(allOutcome)
         tip.text = "总收入: $allIncome    总支出: $allOutcome    结余: $temp"
     }
 

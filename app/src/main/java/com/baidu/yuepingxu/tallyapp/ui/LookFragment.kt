@@ -37,8 +37,8 @@ class LookFragment : Fragment() {
     private var list: MutableList<ShowBean> = mutableListOf()
     private var allList: MutableList<Bean> = mutableListOf()
     private var adapter: MyAdapter? = null
-    private var allIncome: Float = 0f
-    private var allOutcome: Float = 0f
+    private var allIncome: BigDecimal = 0f.toBigDecimal()
+    private var allOutcome: BigDecimal = 0f.toBigDecimal()
     private val observer: ObserManager.Observer = object : ObserManager.Observer {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onChange() {
@@ -135,8 +135,8 @@ class LookFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initData() {
-        allOutcome = 0f
-        allIncome = 0f
+        allOutcome = 0f.toBigDecimal()
+        allIncome = 0f.toBigDecimal()
         val timeList: MutableMap<String, Float> = mutableMapOf<String, Float>()
         SqliteUtil.queryAll().forEach {
             val time = "" + it.year + "年" + it.month + "月份"
@@ -144,10 +144,10 @@ class LookFragment : Fragment() {
             if (!TextUtils.isEmpty(it.money)) {
                 if (it.money.startsWith("-")) {
                     allMoney = -(it.money.split("-")[1]).toFloat()
-                    allOutcome += allMoney
+                    allOutcome = allOutcome.add(allMoney.toBigDecimal())
                 } else {
                     allMoney = it.money.toFloat()
-                    allIncome += allMoney
+                    allIncome = allIncome.add(allMoney.toBigDecimal())
                 }
             }
             if (timeList.containsKey(time)) {
@@ -166,7 +166,7 @@ class LookFragment : Fragment() {
         }
 
 
-        val temp = BigDecimal(allOutcome.toString()).add(BigDecimal(allIncome.toString()))
+        val temp = allIncome.add(allOutcome)
         tip.text = "总收入: $allIncome    总支出: $allOutcome    结余: $temp"
     }
 }
